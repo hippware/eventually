@@ -1,4 +1,4 @@
-defmodule DawdleDB.Eventually do
+defmodule Eventually do
   @moduledoc """
   Macros to support assertions/refutations that might not be correct immediately
   but will eventually become so due to, say, eventual consistency.
