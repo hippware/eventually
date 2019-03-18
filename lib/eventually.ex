@@ -65,7 +65,7 @@ defmodule DawdleDB.Eventually do
         fun,
         result,
         interval,
-        Timex.now() |> Timex.shift(milliseconds: timeout)
+        DateTime.add(DateTime.utc_now(), timeout, :millisecond)
       )
 
   defp do_eventually(fun, result, interval, stop_at) do
@@ -74,7 +74,7 @@ defmodule DawdleDB.Eventually do
         :ok
 
       {:fail, value} ->
-        if DateTime.compare(stop_at, Timex.now()) == :lt do
+        if DateTime.compare(stop_at, DateTime.utc_now()) == :lt do
           {:fail, value}
         else
           Process.sleep(interval)
