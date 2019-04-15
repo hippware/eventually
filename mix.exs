@@ -12,6 +12,7 @@ defmodule Eventually.MixProject do
       deps: deps(),
       docs: docs(),
       package: package(),
+      description: description(),
       test_coverage: [tool: ExCoveralls, test_task: "test"],
       preferred_cli_env: [
         coveralls: :test,
@@ -45,6 +46,14 @@ defmodule Eventually.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
+  end
+
+  defp description do
+    """
+    Macros to support assertions/refutations that might not be correct
+    immediately but will eventually become so due to, say, eventual
+    consistency.
+    """
   end
 
   defp package do
