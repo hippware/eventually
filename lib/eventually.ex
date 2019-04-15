@@ -7,17 +7,14 @@ defmodule Eventually do
   @default_timeout 1000
   @default_interval 10
 
-  defmacro assert_eventually(clause) do
-    quote do
-      assert_eventually(
-        unquote(clause),
-        unquote(@default_timeout),
-        unquote(@default_interval)
-      )
-    end
-  end
-
-  defmacro assert_eventually(clause, timeout, interval) do
+  @doc """
+  Assert that the passed clause eventually returns `true`.
+  """
+  defmacro assert_eventually(
+             clause,
+             timeout \\ @default_timeout,
+             interval \\ @default_interval
+           ) do
     quote do
       fun = fn -> unquote(clause) end
 
@@ -33,17 +30,14 @@ defmodule Eventually do
     end
   end
 
-  defmacro refute_eventually(clause) do
-    quote do
-      refute_eventually(
-        unquote(clause),
-        unquote(@default_timeout),
-        unquote(@default_interval)
-      )
-    end
-  end
-
-  defmacro refute_eventually(clause, timeout, interval) do
+  @doc """
+  Assert that the passed clause eventually returns `false`.
+  """
+  defmacro refute_eventually(
+             clause,
+             timeout \\ @default_timeout,
+             interval \\ @default_interval
+           ) do
     quote do
       fun = fn -> unquote(clause) end
 
@@ -59,6 +53,9 @@ defmodule Eventually do
     end
   end
 
+  @doc false
+  @spec eventually(fun(), boolean(), non_neg_integer(), non_neg_integer()) ::
+          :ok | {:fail, any()}
   def eventually(fun, result, timeout, interval),
     do:
       do_eventually(
