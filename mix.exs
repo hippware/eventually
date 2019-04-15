@@ -4,10 +4,25 @@ defmodule Eventually.MixProject do
   def project do
     [
       app: :eventually,
-      version: "0.1.0",
-      elixir: "~> 1.8",
+      version: "1.0.0",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls, test_task: "test"],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test
+      ],
+      dialyzer: [
+        flags: [
+          :error_handling,
+          :race_conditions,
+          :underspecs,
+          :unmatched_returns
+        ]
+        # ignore_warnings: "dialyzer_ignore.exs",
+        # list_unused_filters: true
+      ]
     ]
   end
 
@@ -21,8 +36,9 @@ defmodule Eventually.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:credo, "~> 1.0", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.6", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 end
