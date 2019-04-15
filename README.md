@@ -1,6 +1,7 @@
 # Eventually
 
-**TODO: Add description**
+Macros to support assertions/refutations that might not be correct immediately
+but will eventually become so due to, say, eventual consistency.
 
 ## Installation
 
@@ -10,12 +11,18 @@ by adding `eventually` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:eventually, "~> 0.1.0"}
+    {:eventually, "~> 1.0"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/eventually](https://hexdocs.pm/eventually).
+Documentation can be found at
+[https://hexdocs.pm/eventually](https://hexdocs.pm/eventually).
 
+## Usage
+
+```
+test "something that will eventually be true" do
+  assert_eventually something_that_will_be_true()
+end
+```

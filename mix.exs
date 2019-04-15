@@ -1,13 +1,17 @@
 defmodule Eventually.MixProject do
   use Mix.Project
 
+  @version "1.0.0"
+
   def project do
     [
       app: :eventually,
-      version: "1.0.0",
+      version: @version,
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      docs: docs(),
+      package: package(),
       test_coverage: [tool: ExCoveralls, test_task: "test"],
       preferred_cli_env: [
         coveralls: :test,
@@ -38,7 +42,24 @@ defmodule Eventually.MixProject do
     [
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, ">= 0.0.0", only: :dev}
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Bernard Duggan", "Phil Toland"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/hippware/eventually"}
+    ]
+  end
+
+  defp docs do
+    [
+      source_ref: "v#{@version}",
+      main: "readme",
+      extras: ["README.md"]
     ]
   end
 end
