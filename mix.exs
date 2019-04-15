@@ -5,7 +5,7 @@ defmodule Eventually.MixProject do
     [
       app: :eventually,
       version: "1.0.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls, test_task: "test"],
