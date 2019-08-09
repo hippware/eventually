@@ -5,7 +5,6 @@
     assert_eventually: 1,
     assert_eventually: 2,
     assert_eventually: 3,
-
     refute_eventually: 1,
     refute_eventually: 2,
     refute_eventually: 3
