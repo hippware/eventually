@@ -38,8 +38,8 @@ defmodule EventuallyTest do
     end
 
     test "return value on success should be return value of condition fun", ctx do
-      assert (assert_eventually(_a = "test value")) == "test value"
-      assert (assert_eventually wait(ctx.start, 50, _b = "abcd")) == "abcd"
+      assert assert_eventually(_a = "test value") == "test value"
+      assert assert_eventually(wait(ctx.start, 50, _b = "abcd")) == "abcd"
     end
   end
 
@@ -71,9 +71,9 @@ defmodule EventuallyTest do
     end
 
     test "return value on success should be return value of condition fun", ctx do
-      assert (refute_eventually("test value" != "test value")) == false
-      assert (refute_eventually wait(ctx.start, 50, "abcd" != "abcd")) == false
-      assert (refute_eventually wait(ctx.start, 50, _a = nil)) == nil
+      assert refute_eventually("test value" != "test value") == false
+      assert refute_eventually(wait(ctx.start, 50, "abcd" != "abcd")) == false
+      assert refute_eventually(wait(ctx.start, 50, _a = nil)) == nil
     end
   end
 

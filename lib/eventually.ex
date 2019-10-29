@@ -59,7 +59,7 @@ defmodule Eventually do
 
   @doc false
   @spec eventually(fun(), boolean(), non_neg_integer(), non_neg_integer()) ::
-          :ok | {:fail, any()}
+          {:ok, term()} | {:fail, any()}
   def eventually(fun, result, timeout, interval),
     do:
       do_eventually(
