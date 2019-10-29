@@ -8,7 +8,9 @@ defmodule Eventually do
   @default_interval 10
 
   @doc """
-  Assert that the passed clause eventually returns `true`.
+  Assert that the passed clause eventually returns a truthy value.
+
+  Returns the first value that was truthy.
   """
   defmacro assert_eventually(
              clause,
@@ -19,8 +21,8 @@ defmodule Eventually do
       fun = fn -> unquote(clause) end
 
       case eventually(fun, true, unquote(timeout), unquote(interval)) do
-        :ok ->
-          :ok
+        {:ok, value} ->
+          value
 
         {:fail, value} ->
           raise ExUnit.AssertionError,
@@ -31,7 +33,9 @@ defmodule Eventually do
   end
 
   @doc """
-  Assert that the passed clause eventually returns `false`.
+  Assert that the passed clause eventually returns a falsy value.
+
+  Returns the first value that was falsy.
   """
   defmacro refute_eventually(
              clause,
@@ -42,8 +46,8 @@ defmodule Eventually do
       fun = fn -> unquote(clause) end
 
       case eventually(fun, false, unquote(timeout), unquote(interval)) do
-        :ok ->
-          :ok
+        {:ok, value} ->
+          value
 
         {:fail, value} ->
           raise ExUnit.AssertionError,
@@ -67,8 +71,8 @@ defmodule Eventually do
 
   defp do_eventually(fun, result, interval, stop_at) do
     case check_condition(fun, result) do
-      :ok ->
-        :ok
+      {:ok, value} ->
+        {:ok, value}
 
       {:fail, value} ->
         if DateTime.compare(stop_at, DateTime.utc_now()) == :lt do
@@ -86,7 +90,7 @@ defmodule Eventually do
     value = fun.()
 
     if (value && result) || (!value && !result) do
-      :ok
+      {:ok, value}
     else
       {:fail, value}
     end

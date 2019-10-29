@@ -11,7 +11,7 @@ by adding `eventually` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:eventually, "~> 1.0"}
+    {:eventually, "~> 1.1"}
   ]
 end
 ```
